@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+      {% block content %}
+
+        <h1>Events List!</h1>
+
+        <form action="/events" method="POST">
+          <label for="date">Date</label>
+          <input type="date" name="date" id="date">
+
+          <label for="event">Event</label>
+          <input type="text" name="event" id="event">
+
+          <label for="guests">Guests</label>
+          <input type="text" name="guests" id="guests"> 
+          
+          <label for="room_location">Room Location</label>
+          <input type="text" name="room_location" id="room_location">
+          
+          <label for="description">Description</label>
+          <textarea name="description" cols="30" rows="2"></textarea>
+          
+          <label for="recurring">Recurring</label>
+          <input type= "checkbox" name="recurring" id="recurring" value="False"></input>
+          
+          <input type="submit" value="Add Event">
+        </form>
+
+        
+        
+
+        {% for event in event_list %}  
+        <div>
+          <p>
+           Date: {{event.date}} Event: {{ event.name_of_event }} Number of guests: {{event.number_of_guests}} Room: {{event.room_location}} Description: {{ event.description }}
+            {% if event.recurring %}
+            Recurring: <span> &#9989 </span>
+            {% elif event.recurring == False %}
+            Recurring: <span> &#10060 </span>
+            {% endif %}
+          </p>
+        </div>
+        {% endfor %}
+      
+      
+
+      <form action="/events/delete" method="POST">
+        <label for="delete">Which event would you like to delete?</label>
+        <input type="text" name="delete", id="delete">
+
+        <input type="submit" value="Delete Event">
+      </form>
+    {% endblock %}
